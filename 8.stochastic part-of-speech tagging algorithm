@@ -1,0 +1,52 @@
+# Define the training corpus
+corpus <- list(
+  list(words = c("the", "cat", "sat"), tags = c("DET", "NOUN", "VERB")),
+  list(words = c("the", "dog", "barked"), tags = c("DET", "NOUN", "VERB")),
+  list(words = c("a", "cat", "meowed"), tags = c("DET", "NOUN", "VERB")),
+  list(words = c("the", "dog", "ran"), tags = c("DET", "NOUN", "VERB"))
+)
+
+# Calculate word-tag probabilities
+word_tag_probs <- list()
+for (sentence in corpus) {
+  words <- sentence$words
+  tags <- sentence$tags
+  for (i in seq_along(words)) {
+    word <- words[i]
+    tag <- tags[i]
+    if (!(word %in% names(word_tag_probs))) {
+      word_tag_probs[[word]] <- list()
+    }
+    if (!(tag %in% names(word_tag_probs[[word]]))) {
+      word_tag_probs[[word]][[tag]] <- 0
+    }
+    word_tag_probs[[word]][[tag]] <- word_tag_probs[[word]][[tag]] + 1
+  }
+}
+
+
+for (word in names(word_tag_probs)) {
+  total <- sum(unlist(word_tag_probs[[word]]))
+  for (tag in names(word_tag_probs[[word]])) {
+    word_tag_probs[[word]][[tag]] <- word_tag_probs[[word]][[tag]] / total
+  }
+}
+
+# Simple POS tagging function
+simple_pos_tag <- function(sentence) {
+  tags <- c()
+  for (word in sentence) {
+    if (word %in% names(word_tag_probs)) {
+      tag <- names(which.max(unlist(word_tag_probs[[word]])))
+    } else {
+      tag <- "NOUN"  # Default tag if word is not in training data
+    }
+    tags <- c(tags, tag)
+  }
+  return(tags)
+}
+
+# Test the POS tagger
+new_sentence <- c("the", "cat", "ran") # This line was incomplete and caused the error
+tags <- simple_pos_tag(new_sentence)
+print(paste(new_sentence, tags, sep = "/"))  # Print words with their tags
