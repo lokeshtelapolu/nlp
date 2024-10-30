@@ -1,0 +1,14 @@
+import spacy
+nlp = spacy.load("en_core_web_sm")
+dicto = {
+    "apple": "a fruit",
+    "car": "a vehicle",
+    "dog": "a pet animal",
+    "book": "a set of pages",
+    "phone": "a communication device"
+}
+def phrases(sentence):
+    doc = nlp(sentence)
+    return {np.text: dicto.get(np.text.lower(), "Meaning not found") for np in doc.noun_chunks}
+sentence = "apple"
+print(phrases(sentence))
