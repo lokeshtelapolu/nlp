@@ -1,0 +1,25 @@
+import nltk
+from nltk import CFG
+
+# Define a context-free grammar
+grammar = CFG.fromstring("""
+  S -> NP VP
+  NP -> Det N | Det N PP
+  VP -> V NP | VP PP
+  PP -> P NP
+  Det -> 'the' | 'a'
+  N -> 'cat' | 'dog' | 'park'
+  V -> 'saw' | 'chased'
+  P -> 'in' | 'with'
+""")
+
+# Create a parser
+parser = nltk.ChartParser(grammar)
+
+# Define a sentence
+sentence = "the cat saw the dog in the park".split()
+
+# Generate the parse tree
+for tree in parser.parse(sentence):
+    print(tree)
+    tree.pretty_print()
