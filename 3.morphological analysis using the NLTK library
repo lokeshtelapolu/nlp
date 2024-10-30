@@ -1,0 +1,27 @@
+# Import necessary libraries
+import nltk
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+
+# Download required NLTK data
+nltk.download('punkt')
+nltk.download('wordnet')
+
+# Initialize stemmer and lemmatizer
+stemmer = PorterStemmer()
+lemmatizer = WordNetLemmatizer()
+
+# Define a sample text
+text = "the cats are running and jumping quickly"
+
+# Tokenize the text into words
+words = nltk.word_tokenize(text)
+
+# Perform stemming
+print("Stemming words:")
+for word in words:
+    print(word, "->", stemmer.stem(word))
+
+# Perform lemmatization
+print("\nLemmatizing words:")
+for word in words:
+    print(word, "->", lemmatizer.lemmatize(word, pos='v'))
