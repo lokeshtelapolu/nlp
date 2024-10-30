@@ -1,0 +1,37 @@
+import nltk
+from nltk.corpus import wordnet as wn
+
+# Download necessary NLTK data if not already downloaded
+nltk.download('wordnet')
+
+# Retrieve synsets for a given word
+word = 'happy'
+synsets = wn.synsets(word)
+
+# Print the synsets and their definitions
+for synset in synsets:
+    print(f"Synset: {synset.name()}")
+    print(f"Definition: {synset.definition()}")
+    print(f"Examples: {synset.examples()}")
+    print()
+
+# Explore relationships between synsets
+# Get the hypernym (parent) of a synset
+synset = wn.synset('happy.a.01')
+hypernym = synset.hypernyms()[0]
+print(f"Hypernym: {hypernym.name()}")
+
+# Get the hyponym (child) of a synset
+hyponym = wn.synset('joyful.a.01')
+hyponym_of = hyponym.hyponyms()[0]
+print(f"Hyponym: {hyponym_of.name()}")
+
+# Get the meronym (part) of a synset
+meronym = wn.synset('smile.n.01')
+meronym_of = meronym.meronyms()[0]
+print(f"Meronym: {meronym_of.name()}")
+
+# Get the holonym (whole) of a synset
+holonym = wn.synset('face.n.01')
+holonym_of = holonym.holonyms()[0]
+print(f"Holonym: {holonym_of.name()}")
