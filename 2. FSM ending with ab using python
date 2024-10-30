@@ -1,0 +1,22 @@
+test_strings = ["hello", "world", "testab", "abab", "abc", "xyzab"]
+
+for string in test_strings:
+    state = 0  # Start in the initial state
+
+    for char in string:
+        if state == 0:  # Initial state
+            if char == 'a':
+                state = 1  # Move to state 1 if 'a' is found
+        elif state == 1:  # After reading 'a'
+            if char == 'b':
+                state = 2  # Move to state 2 if 'b' is found
+            else:
+                state = 0  # Reset to initial state for any other character
+        elif state == 2:  # Accepting state
+            state = 0  # Move back to initial state after reaching state 2
+
+    # Check if we ended in the accepting state
+    if state == 2:
+        print(f"The string '{string}' is accepted.")
+    else:
+        print(f"The string '{string}' is not accepted.")
