@@ -1,4 +1,8 @@
+import nltk
 from nltk.corpus import wordnet
+
+# Download the 'wordnet' resource
+nltk.download('wordnet')
 
 synsets = wordnet.synsets('bank')
 for synset in synsets:
