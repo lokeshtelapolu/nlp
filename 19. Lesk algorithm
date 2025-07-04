@@ -2,4 +2,5 @@ import nltk
 from nltk.wsd import lesk; from nltk.corpus import wordnet as wn
 nltk.download('wordnet')
 context = "I went to the bank to deposit money"
-sense = lesk(context.split(), 'bank'); print(sense.name(), sense.definition()) if sense else print("No sense found.")\
+sense = lesk(context.split(), 'bank')
+print(sense.name(), sense.definition()) if sense else print("No sense found.")
