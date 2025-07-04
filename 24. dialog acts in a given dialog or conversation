@@ -28,4 +28,3 @@ conversation = [
 recognized_acts = recognize_dialog_acts(conversation)
 for line, act in recognized_acts:
     print(f"Dialog: '{line}' - Act: '{act}'")
-________________
