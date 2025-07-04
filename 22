@@ -1,0 +1,37 @@
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize 
+from nltk.tag import pos_tag  
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
+text = "John went to the store. He bought some milk."
+sentences = sent_tokenize(text)
+tokenized_sentences = [word_tokenize(sentence) for sentence in sentences]
+tagged_sentences = [pos_tag(sentence) for sentence in tokenized_sentences]
+
+def resolve_references(tagged_sentences):
+    
+    resolved_text = [] 
+    prev_noun = None  
+    for sentence in tagged_sentences:
+        new_sentence = []  # List to store the modified sentence after pronoun resolution
+        
+        for word, tag in sentence:
+            if tag in ['NN', 'NNP'] and prev_noun is None:
+                prev_noun = word  
+
+            
+            if word.lower() == 'he' and prev_noun:
+                new_sentence.append(prev_noun) 
+            else:
+                new_sentence.append(word)  
+        
+       
+        resolved_text.append(" ".join(new_sentence))
+
+   
+    return " ".join(resolved_text)
+
+resolved_text = resolve_references(tagged_sentences)
+print("Original Text: ", text)
+print("Resolved Text: ", resolved_text)
